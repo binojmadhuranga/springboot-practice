@@ -11,6 +11,7 @@ import lombok.*;
 @AllArgsConstructor
 public class Customer {
 
+
     @Id
     private int id;
 
