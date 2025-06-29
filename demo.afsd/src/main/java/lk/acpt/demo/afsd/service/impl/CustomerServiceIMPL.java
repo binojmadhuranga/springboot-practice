@@ -36,12 +36,26 @@ public class CustomerServiceIMPL implements CustomerService {
 
     @Override
     public CustomerDto updateCustomer(CustomerDto customerDTO) {
-        return null;
+
+        Optional<Customer> byId = repo.findById(customerDTO.getId());
+        if (byId.isPresent()) {
+            Customer customer = byId.get();
+            customer.setName(customerDTO.getName());
+            customer.setSalary(customerDTO.getSalary());
+            customer.setEmail(customerDTO.getEmail());
+            Customer updatedCustomer = repo.save(customer);
+            return new CustomerDto(updatedCustomer.getId(), updatedCustomer.getName(), updatedCustomer.getSalary(), updatedCustomer.getEmail());
+
+        } else {
+            return null;
+        }
+
     }
+
 
     @Override
     public List<CustomerDto> getAllCustomers() {
-    List<Customer> all = repo.findAll();
+        List<Customer> all = repo.findAll();
         ArrayList<CustomerDto> customerDtos = new ArrayList<>();
 
         for (Customer customer : all) {
@@ -50,8 +64,6 @@ public class CustomerServiceIMPL implements CustomerService {
 
         return customerDtos;
     }
-
-
 
 
     @Override
@@ -71,11 +83,27 @@ public class CustomerServiceIMPL implements CustomerService {
 
     @Override
     public CustomerDto getCustomerById(int id) {
-        return null;
+        Optional<Customer> byid = repo.findById(id);
+        if (byid.isPresent()) {
+            Customer customer = byid.get();
+            return new CustomerDto(customer.getId(), customer.getName(), customer.getSalary(), customer.getEmail());
+        } else {
+            return null;
+        }
+
     }
+
 
     @Override
     public CustomerDto getCustomerByEmail(String email) {
+        Optional<Customer> byemail = repo.findByEmail(email);
+        if (byemail.isPresent()) {
+            Customer customer = byemail.get();
+            return new CustomerDto(customer.getId(), customer.getName(), customer.getSalary(), customer.getEmail());
+        }
+
+
         return null;
+
     }
 }

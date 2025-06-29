@@ -6,10 +6,8 @@ import lk.acpt.demo.afsd.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -34,7 +32,6 @@ public class CustomerController {
     }
 
 
-
     @GetMapping
     public ResponseEntity<List<CustomerDto>> getAllCustomer() {
 
@@ -50,25 +47,64 @@ public class CustomerController {
         if (result != null) {
             return new ResponseEntity<>(result, HttpStatus.OK);
         } else {
-            HashMap<String,Object> map = new HashMap<>();
-            map.put("status"," HttpStatus.NOT_FOUND");
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("status", " HttpStatus.NOT_FOUND");
             return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
         }
 
     }
 
-    @PutMapping
-    public void updateCustomer() {
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> updateCustomer(@RequestBody CustomerDto customerDto, @PathVariable("id") int id) {
+
+        //CustomerDto customerDto = new CustomerDto();
+
+        customerDto.setId(id);
+        CustomerDto result = customerService.updateCustomer(customerDto);
+
+        if (result != null) {
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } else {
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("status", " HttpStatus.NOT_FOUND");
+            return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
+        }
+
 
     }
+
 
     @GetMapping("/{id}")
-    public void getCustomerById() {
+    public  ResponseEntity<Object> getCustomerById(@PathVariable("id") int id) {
+
+        CustomerDto customerDto = customerService.getCustomerById(id);
+        if (customerDto != null) {
+            return new ResponseEntity<>(customerDto, HttpStatus.OK);
+        } else {
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("status", " HttpStatus.NOT_FOUND");
+            return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
+        }
 
     }
 
-    @GetMapping("/get_customer_by_id/{email}")
-    public void getCustomerByEmail() {
+
+
+    @GetMapping("/get_customer_by_email/{email}")
+
+    public ResponseEntity<Object> getCustomerByEmail(@PathVariable("email") String email) {
+
+        CustomerDto customerDto = customerService.getCustomerByEmail(email);
+        if (customerDto != null) {
+            return new ResponseEntity<>(customerDto, HttpStatus.OK);
+
+        } else {
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("status", " HttpStatus.NOT_FOUND");
+            return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
+        }
+
+
 
     }
 
