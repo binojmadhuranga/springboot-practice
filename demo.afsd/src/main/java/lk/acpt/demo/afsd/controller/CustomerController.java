@@ -9,12 +9,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @RequestMapping("/api/v1/customers")
 @RestController
 public class CustomerController {
 
-  private final CustomerService customerService;
+    private final CustomerService customerService;
 
     @Autowired
     public CustomerController(CustomerService customerService) {
@@ -23,19 +26,31 @@ public class CustomerController {
 
 
     @PostMapping
-    public  ResponseEntity<CustomerDto> saveCustomer(@RequestBody CustomerDto customerDto) {
+    public ResponseEntity<CustomerDto> saveCustomer(@RequestBody CustomerDto customerDto) {
         CustomerDto result = customerService.saveCustomer(customerDto);
         return new ResponseEntity<>(result, HttpStatus.CREATED);
 
     }
 
+
+
     @GetMapping
-    public void getAllCustomer() {
+    public ResponseEntity<List<CustomerDto>> getAllCustomer() {
+
+        List<CustomerDto> allCustomers = customerService.getAllCustomers();
+        return new ResponseEntity<>(customerService.getAllCustomers(), HttpStatus.OK);
 
     }
 
-    @DeleteMapping
-    public void deleteCustomer() {
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<CustomerDto> deleteCustomer(@PathVariable("id") int id) {
+        CustomerDto result = customerService.deleteCustomer(id);
+        if (result != null) {
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } else {
+            return null;
+        }
 
     }
 

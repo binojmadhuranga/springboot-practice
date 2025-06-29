@@ -9,7 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CustomerServiceIMPL implements CustomerService {
@@ -39,12 +41,32 @@ public class CustomerServiceIMPL implements CustomerService {
 
     @Override
     public List<CustomerDto> getAllCustomers() {
-        return List.of();
+    List<Customer> all = repo.findAll();
+        ArrayList<CustomerDto> customerDtos = new ArrayList<>();
+
+        for (Customer customer : all) {
+            customerDtos.add(new CustomerDto(customer.getId(), customer.getName(), customer.getSalary(), customer.getEmail()));
+        }
+
+        return customerDtos;
     }
+
+
+
 
     @Override
     public CustomerDto deleteCustomer(int id) {
-        return null;
+
+        Optional<Customer> byid = repo.findById(id);
+        if (byid.isPresent()) {
+            repo.deleteById(id);
+            Customer customer = byid.get();
+            return new CustomerDto(customer.getId(), customer.getName(), customer.getSalary(), customer.getEmail());
+        } else {
+            return null;
+        }
+
+
     }
 
     @Override
