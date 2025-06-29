@@ -1,6 +1,9 @@
 package lk.acpt.demo.afsd.controller;
 
 
+import lk.acpt.demo.afsd.dto.CustomerDto;
+import lk.acpt.demo.afsd.service.CustomerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,8 +12,17 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class CustomerController {
 
+    CustomerService customerService;
+
+    @Autowired
+    public CustomerController(CustomerService customerService) {
+        this.customerService = customerService;
+    }
+
+
     @PostMapping
-    public void saveCustomer() {
+    public void saveCustomer(@RequestBody CustomerDto customerDto) {
+        CustomerDto savedCustomer = customerService.saveCustomer(customerDto);
 
     }
 

@@ -24,8 +24,8 @@ public class CustomerServiceIMPL implements CustomerService {
     }
 
     @Override
-    public int deleteCustomer(int id) {
-        return 0;
+    public CustomerDto deleteCustomer(int id) {
+        return null;
     }
 
     @Override

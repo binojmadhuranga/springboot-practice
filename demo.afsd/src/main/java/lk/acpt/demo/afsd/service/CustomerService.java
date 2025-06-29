@@ -1,18 +1,20 @@
 package lk.acpt.demo.afsd.service;
 
 import lk.acpt.demo.afsd.dto.CustomerDto;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public interface CustomerService {
 
 
-    public CustomerDto saveCustomer(CustomerDto customerDto);
-    public CustomerDto updateCustomer(CustomerDto customerDTO);
-    public List<CustomerDto > getAllCustomers();
-    public int deleteCustomer(int id);
-    public CustomerDto getCustomerById(int id);
-    public CustomerDto getCustomerByEmail(String email);
+    CustomerDto saveCustomer(CustomerDto customerDto);
+    CustomerDto updateCustomer(CustomerDto customerDTO);
+    List<CustomerDto > getAllCustomers();
+    CustomerDto deleteCustomer(int id);
+    CustomerDto getCustomerById(int id);
+    CustomerDto getCustomerByEmail(String email);
 
 
 
