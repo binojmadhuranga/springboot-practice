@@ -4,16 +4,20 @@ import lk.acpt.demo.afsd.dto.CustomerDto;
 import lk.acpt.demo.afsd.entity.Customer;
 import lk.acpt.demo.afsd.repo.CustomerRepo;
 import lk.acpt.demo.afsd.service.CustomerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class CustomerServiceIMPL implements CustomerService {
 
 
     CustomerRepo repo;
 
+    @Autowired
     public CustomerServiceIMPL(CustomerRepo repo) {
         this.repo = repo;
     }
