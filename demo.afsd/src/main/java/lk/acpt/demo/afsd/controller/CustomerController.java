@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -44,12 +45,14 @@ public class CustomerController {
 
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<CustomerDto> deleteCustomer(@PathVariable("id") int id) {
+    public ResponseEntity<Object> deleteCustomer(@PathVariable("id") int id) {
         CustomerDto result = customerService.deleteCustomer(id);
         if (result != null) {
             return new ResponseEntity<>(result, HttpStatus.OK);
         } else {
-            return null;
+            HashMap<String,Object> map = new HashMap<>();
+            map.put("status"," HttpStatus.NOT_FOUND");
+            return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
         }
 
     }
