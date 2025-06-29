@@ -1,6 +1,4 @@
 package lk.acpt.demo.afsd.entity;
-
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.*;
