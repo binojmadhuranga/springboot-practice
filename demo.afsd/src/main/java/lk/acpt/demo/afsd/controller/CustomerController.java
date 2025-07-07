@@ -74,7 +74,7 @@ public class CustomerController {
 
 
     @GetMapping("/{id}")
-    public  ResponseEntity<Object> getCustomerById(@PathVariable("id") int id) {
+    public ResponseEntity<Object> getCustomerById(@PathVariable("id") int id) {
 
         CustomerDto customerDto = customerService.getCustomerById(id);
         if (customerDto != null) {
@@ -86,7 +86,6 @@ public class CustomerController {
         }
 
     }
-
 
 
     @GetMapping("/get_customer_by_email/{email}")
@@ -102,7 +101,6 @@ public class CustomerController {
             map.put("status", " HttpStatus.NOT_FOUND");
             return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
         }
-
 
 
     }
