@@ -19,5 +19,4 @@ public class CustomerDto {
 
     private String email;
 
-
 }
